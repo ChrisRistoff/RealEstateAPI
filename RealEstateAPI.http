@@ -1,0 +1,6 @@
+@RealEstateAPI_HostAddress = http://localhost:5295
+
+GET {{RealEstateAPI_HostAddress}}/api/Houses
+Accept: application/json
+
+###
