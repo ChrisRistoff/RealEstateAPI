@@ -23,3 +23,24 @@ public class Apartment
    [ForeignKey("areaId")]
    public Area areas { get; set; }
 }
+
+public class CreateApartmentDto
+{
+    [Required]
+    [StringLength(20)]
+    public string description { get; set; }
+    [Required]
+    public double price { get; set; }
+    [Required]
+    public string address { get; set; }
+    [Required]
+    public string postcode { get; set; }
+    [Required]
+    public int sqrFeet { get; set; }
+    [Required]
+    public int rooms { get; set; }
+    [Required]
+    public int bathrooms { get; set; }
+    public int parkingSpaces { get; set; }
+    public bool furnished { get; set; } = false;
+}

@@ -1,16 +1,97 @@
 \c real_estate_db
 
 DELETE FROM areas;
-
-INSERT INTO areas ("areaId", name, description, schools, shops, kindergardens) VALUES
-(1, 'Greenfield', 'A peaceful and family-friendly area.', 'Greenfield Primary, Riverside High', 'Greenfield Mall, Local Market', 'Sunny Days Kindergarten, Little Steps'),
-(2, 'Lakeside', 'Beautiful views and vibrant community.', 'Lakeside School, Mountain View High', 'Lakeside Shopping Center, Organic Foods Market', 'Happy Tots, Kids Adventure Kindergarten'),
-(3, 'Downtown', 'Busy and bustling city life.', 'City School, Central High', 'Downtown Plaza, 24/7 Supermarket', 'Urban Kids, Future Leaders Kindergarten');
+INSERT INTO areas ("areaId", "name", "description", "schools", "shops", "kindergartens") VALUES
+(1, 'Grantchester', 'A picturesque village on the outskirts of Cambridge, known for its idyllic meadows and historic charm.', 'Grantchester Village School, The Perse School', 'Grantchester Orchard Tea Garden, The Red Lion Pub', 'Grantchester Playgroup, Riverside Nursery'),
+(2, 'City Centre', 'The historic and cultural heart of Cambridge, bustling with university life and rich in architectural beauty.', 'King’s College School, Parkside Community College', 'Grand Arcade, Lion Yard Shopping Centre', 'Bright Horizons, Cambridge City Centre Nursery'),
+(3, 'River Cam', 'A serene area characterized by the River Cam, popular for punting and picturesque views.', 'Cambridge International School, St. Matthew’s Primary', 'Grafton Centre, Quayside Market', 'River Cam Day Nursery, The Wendy House'),
+(4, 'Newnham', 'A leafy, tranquil area known for its beautiful gardens and academic atmosphere.', 'Newnham Croft Primary School, St. Mary’s School', 'Newnham Butchers, Derby Stores', 'Newnham Nursery, Sunflower Nursery'),
+(5, 'Mill Road', 'A vibrant and diverse area known for its independent shops and multicultural community.', 'St. Philip’s CofE Primary, Spinney Primary School', 'Mill Road Butchers, Hilary’s Greengrocery', 'Arbury Pre-School, Bharat Bhavan Indian Cultural Centre Nursery'),
+(6, 'Chesterton', 'A charming area with a mix of historic and modern influences, close to the River Cam.', 'Chesterton Community College, Milton Road Primary', 'Chesterton Road Shops, The Green Coffee Company', 'Chesterton Montessori, Bright Horizons Chesterton'),
+(7, 'Trumpington', 'A rapidly growing suburb with a blend of traditional charm and modern development.', 'Trumpington Community College, Fawcett Primary School', 'Trumpington Meadows Country Park, Waitrose & Partners', 'Trumpington Meadows Day Nursery, Cherry Hinton Nursery'),
+(8, 'West Cambridge', 'A developing area known for its academic institutions and proximity to open countryside.', 'University of Cambridge Primary School, Westfield Junior School', 'West Cambridge Site Stores, Sainsbury’s', 'West Cambridge Day Nursery, Orchard Park Community Pre-School');
+(9, 'Cherry Hinton', 'A suburban area with a strong community feel, known for its parks and local amenities.', 'Cherry Hinton Primary, Netherhall School', 'Cherry Hinton High Street Shops, Tesco Superstore', 'Little Cherries Pre-School, Cherry Hinton Children’s Centre'),
+(10, 'Castle Hill', 'An historic area near the city centre, offering a blend of ancient architecture and modern living.', 'Castle Hill Primary School, St. John’s College School', 'Castle Hill Market, Kettle’s Yard Shop', 'Castle Hill Nursery, Tiny Tots Daycare'),
+(11, 'Arbury', 'A lively residential area with a strong sense of community, known for its local events and facilities.', 'Arbury Primary School, North Cambridge Academy', 'Arbury Court Local Centre, Budgens', 'Arbury Pre-School, The Wendy House Nursery'),
+(12, 'Romsey Town', 'A vibrant, close-knit community with a bohemian vibe, featuring a range of independent shops.', 'Romsey Mill Pre-School, St. Philip’s CofE Primary', 'Romsey Town Retail Area, The Co-operative Food', 'Romsey Mill, Alphabet Day Nursery'),
+(13, 'Petersfield', 'Located in the heart of the city, Petersfield is known for its bustling atmosphere and cultural diversity.', 'Petersfield Primary, Parkside Community College', 'Mill Road Shops, Beehive Centre Retail Park', 'Petersfield Kindergarten, Magic Roundabout Nursery'),
+(14, 'Queen Edith’s', 'A quiet, family-friendly area with excellent schools and healthcare facilities.', 'Queen Edith Primary School, Netherhall School', 'Wulfstan Way Shops, Addenbrooke’s Hospital Shops', 'Queen Edith’s Pre-School, Homerton Children’s Centre'),
+(15, 'East Chesterton', 'An area undergoing transformation, known for its community spirit and convenient location.', 'Shirley Community Primary, Chesterton Community College', 'Chesterton Road Shops, The Green Coffee Company', 'Bright Horizons Chesterton, East Chesterton Nursery'),
+(16, 'Fen Ditton', 'A picturesque village on the outskirts of Cambridge, with beautiful views of the countryside and river.', 'Fen Ditton Primary, Abbey College', 'Fen Ditton Village Shop, The Plough Pub', 'Ditton Ducks Pre-School, Fen Ditton Playgroup');
 
 DELETE FROM houses;
 
-INSERT INTO houses ("areaId", description, price, address, postcode, "sqrFeet", rooms, bathrooms, "parkingSpaces", furnished) VALUES
-(1, 'Cozy family home with a large backyard.', 250000, '123 Maple Street', '12345', 2000, 3, 2, 1, false),
-(1, 'Modern home near the park.', 300000, '456 Oak Avenue', '12345', 2500, 4, 3, 2, true),
-(2, 'Lakeside apartment with stunning views.', 350000, '789 Lake Road', '23456', 1500, 2, 2, 1, true),
-(3, 'Downtown apartment, perfect for city living.', 400000, '101 Main Street', '34567', 1000, 1, 1, 0, false);
+INSERT INTO houses ("areaId", "description", "price", "address", "postcode", "sqrFeet", "rooms", "bathrooms", "parkingSpaces", "furnished") VALUES
+(1, 'Elegant Victorian mansion with sprawling gardens in Grantchester.', 1250000, '1 Meadowsweet Lane', 'CB3 9ND', 4500, 5, 4, 3, true),
+(1, 'Charming riverside cottage with private mooring.', 850000, '22 Riverbank Road', 'CB3 9PA', 2200, 3, 2, 2, false),
+(2, 'Luxury city centre penthouse with rooftop terrace.', 950000, '15 Market Street', 'CB2 3PA', 2000, 3, 3, 1, true),
+(2, 'Contemporary two-bedroom apartment overlooking King’s College.', 650000, '5 University Avenue', 'CB2 1TN', 1200, 2, 2, 0, true),
+(3, 'Modern houseboat on the River Cam with eco-friendly design.', 300000, 'Mooring 12, Riverside', 'CB5 8AB', 700, 2, 1, 0, false),
+(3, 'Spacious family home with river views and large garden.', 750000, '47 Water Street', 'CB4 1PA', 2800, 4, 3, 2, false),
+(4, 'Eco-friendly architect-designed home in Newnham.', 1100000, '3 Orchard Close', 'CB3 9JZ', 3200, 4, 3, 2, true),
+(4, 'Traditional detached house with large garden near University parks.', 900000, '18 Parkside Drive', 'CB3 9JJ', 3000, 4, 2, 2, false),
+(5, 'Renovated Edwardian townhouse in Mill Road area.', 700000, '33 Mill Road', 'CB1 2AB', 2500, 5, 3, 1, true),
+(5, 'Stylish modern apartment close to local amenities.', 450000, 'Apartment 5, The Gables', 'CB1 2PQ', 1100, 2, 2, 1, true),
+(6, 'Luxurious penthouse with panoramic city views in Chesterton.', 800000, 'Penthouse 2, The Clocktower', 'CB4 1ZA', 2100, 3, 2, 2, true),
+(6, 'Spacious family home with private garden in a quiet neighborhood.', 650000, '12 Chesterton Lane', 'CB4 3AX', 2600, 4, 3, 2, false);
+(7, 'Modern family home with a spacious garden in Trumpington.', 650000, '42 Anstey Way', 'CB2 9JE', 2800, 4, 3, 2, false),
+(7, 'Stylish two-bedroom apartment near Addenbrooke’s Hospital.', 380000, 'Flat 5, Beacon Rise', 'CB2 9AN', 950, 2, 2, 1, true),
+(8, 'Renovated farmhouse with open fields and a large barn.', 950000, 'Old Farm Road', 'CB23 7PZ', 4000, 5, 4, 4, false),
+(8, 'Contemporary family home with solar panels in West Cambridge.', 720000, '15 Science Park Road', 'CB4 0GF', 3200, 4, 3, 2, true),
+(9, 'Detached bungalow with a large garden in Cherry Hinton.', 500000, '30 High Street', 'CB1 9HZ', 2000, 3, 2, 2, false),
+(9, 'Three-bedroom terraced house close to local amenities.', 425000, '17 Colville Road', 'CB1 9EJ', 1500, 3, 2, 1, true),
+(10, 'Four-bedroom Victorian house near Castle Hill.', 850000, '22 Victoria Street', 'CB4 3DU', 2500, 4, 2, 1, false),
+(10, 'Modern loft apartment with views of the historic city centre.', 490000, 'Flat 9, Castle Mews', 'CB3 0AQ', 1100, 2, 2, 0, true),
+(11, 'Spacious semi-detached house with a large backyard in Arbury.', 550000, '68 Campkin Road', 'CB4 2ND', 2300, 4, 2, 2, false),
+(11, 'Newly built eco-friendly townhouse in a quiet neighborhood.', 630000, '12 Green End Road', 'CB4 1RW', 2100, 3, 3, 1, true),
+(12, 'Charming Edwardian terrace in Romsey Town.', 675000, '37 Hemingford Road', 'CB1 3BZ', 2200, 4, 3, 0, false),
+(12, 'Modern studio apartment, perfect for young professionals.', 310000, 'Flat 3, Mill Road', 'CB1 2AB', 600, 1, 1, 0, true),
+(13, 'Contemporary two-bedroom apartment in the heart of Petersfield.', 460000, 'Apartment 5, Parkside Place', 'CB1 1HQ', 1000, 2, 2, 1, true),
+(13, 'Traditional townhouse with a private garden near the city centre.', 780000, '58 Mill Street', 'CB1 2AS', 2400, 5, 3, 1, false),
+(14, 'Detached family home with excellent local school access in Queen Edith’s.', 720000, '47 Wulfstan Way', 'CB1 8QJ', 2900, 4, 3, 2, true),
+(14, 'Bright and airy one-bedroom flat, ideal for first-time buyers.', 350000, 'Flat 14, Hills Road', 'CB2 1PG', 700, 1, 1, 1, false),
+(15, 'Newly refurbished four-bedroom house in East Chesterton.', 650000, '32 Milton Road', 'CB4 1JY', 2600, 4, 2, 2, true),
+(15, 'Cosy two-bedroom terraced house near local amenities.', 400000, '12 Orchard Street', 'CB4 3EZ', 1200, 2, 1, 1, false),
+(16, 'Spacious riverside cottage with stunning views in Fen Ditton.', 585000, '29 High Street', 'CB5 8ST', 2100, 3, 2, 2, true),
+(16, 'Modern three-bedroom home with a large garden and patio.', 530000, '7 Church Street', 'CB5 8SP', 1900, 3, 2, 2, false);
+
+DELETE FROM apartments;
+
+INSERT INTO apartments ("areaId", "description", "price", "address", "postcode", "sqrFeet", "rooms", "bathrooms", "parkingSpaces", "furnished") VALUES
+(1, 'Luxury riverside apartment with private balcony in Grantchester.', 550000, 'Flat 8, Riverdale House', 'CB3 9NQ', 1200, 2, 2, 1, true),
+(1, 'Compact studio apartment, perfect for students or single professionals.', 275000, 'Studio 5, Orchard Court', 'CB3 9NA', 500, 1, 1, 0, false),
+(2, 'Modern two-bedroom apartment with city views, close to the university.', 620000, 'Apartment 12, Scholars Court', 'CB2 1TN', 1100, 2, 2, 1, true),
+(2, 'Elegant one-bedroom apartment in a historic building in the city centre.', 450000, 'Flat 3, Regent Terrace', 'CB2 1AA', 800, 1, 1, 0, true),
+(3, 'Contemporary loft apartment overlooking the River Cam.', 400000, 'Loft 4, Riverside Lofts', 'CB5 8AJ', 900, 1, 1, 1, true),
+(3, 'Spacious three-bedroom apartment with communal garden access.', 700000, 'Flat 21, Camside', 'CB4 1YZ', 1400, 3, 2, 1, false),
+(4, 'Two-bedroom ground floor apartment with private garden in Newnham.', 580000, 'Garden Flat, 2 Barton Road', 'CB3 9JZ', 1000, 2, 2, 1, true),
+(4, 'Studio apartment in a quiet area, ideal for academics or professionals.', 310000, 'Studio 7, Grange Court', 'CB3 9BN', 550, 1, 1, 0, false),
+(5, 'Victorian conversion apartment with original features on Mill Road.', 475000, 'Flat 6, The Old Bakery', 'CB1 2BZ', 950, 2, 1, 0, true),
+(5, 'One-bedroom apartment with easy access to local shops and cafes.', 350000, 'Apartment 3, Mill Corner', 'CB1 2LF', 700, 1, 1, 0, false),
+(6, 'Modern penthouse with stunning views in Chesterton.', 800000, 'Penthouse 5, Chesterton Towers', 'CB4 1ZA', 1500, 3, 2, 2, true),
+(6, 'Cosy one-bedroom apartment, recently renovated.', 320000, 'Flat 2, 18 High Street', 'CB4 1AG', 600, 1, 1, 0, false),
+(7, 'Stylish two-bedroom apartment in Trumpington, with balcony and parking.', 420000, 'Apartment 9, The Green', 'CB2 9JZ', 850, 2, 2, 1, true),
+(7, 'Modern studio apartment, ideal for first-time buyers or investors.', 290000, 'Studio 11, Trumpington Meadows', 'CB2 9BF', 500, 1, 1, 0, false),
+(8, 'Three-bedroom apartment with spacious living area in West Cambridge.', 650000, 'Flat 14, Westfield House', 'CB3 0RA', 1300, 3, 2, 1, true),
+(8, 'Newly built one-bedroom apartment with high-spec finishes.', 380000, 'Apartment 5, The West Cambridge Site', 'CB3 0GT', 650, 1, 1, 1, true),
+(9, 'Two-bedroom apartment in Cherry Hinton with private parking.', 360000, 'Flat 22, Cherry Court', 'CB1 9YP', 800, 2, 1, 1, false),
+(9, 'Ground floor studio with garden access, close to local amenities.', 250000, 'Garden Studio, 33 High Street', 'CB1 9HX', 450, 1, 1, 0, true),
+(10, 'Spacious two-bedroom apartment near Castle Hill with historic charm.', 530000, 'Flat 7, Castle View', 'CB3 0AQ', 950, 2, 2, 0, false),
+(10, 'Modern loft-style apartment, centrally located with city views.', 490000, 'Loft 3, Central Court', 'CB2 3AR', 850, 1, 1, 0, true),
+(11, 'Three-bedroom family apartment in Arbury with communal play area.', 410000, 'Apartment 31, Arbury Court', 'CB4 2WP', 1100, 3, 2, 1, false),
+(11, 'Compact and modern one-bedroom apartment, great for singles or couples.', 300000, 'Flat 12, Northfield Residences', 'CB4 2GU', 550, 1, 1, 0, true),
+(12, 'Chic two-bedroom apartment in Romsey Town, close to the train station.', 460000, 'Apartment 8, Romsey Terrace', 'CB1 3NH', 900, 2, 2, 0, true),
+(12, 'Newly renovated studio apartment, perfect for young professionals.', 275000, 'Studio 5, Mill Road Studios', 'CB1 2AB', 480, 1, 1, 0, false),
+(13, 'Luxury apartment in Petersfield with private terrace and concierge service.', 750000, 'Penthouse 2, The Petersfield', 'CB1 1BB', 1400, 3, 2, 1, true),
+(13, 'One-bedroom apartment in the city centre, ideal for university staff or students.', 350000, 'Flat 4, City Gate', 'CB1 1JW', 600, 1, 1, 0, false),
+(14, 'Family-sized apartment in Queen Edith’s with excellent local amenities.', 500000, 'Apartment 17, Wulfstan Way', 'CB1 8QJ', 1200, 3, 2, 1, false),
+(14, 'Modern two-bedroom apartment with easy access to Addenbrooke’s Hospital.', 420000, 'Flat 21, The Ediths', 'CB2 0QQ', 850, 2, 2, 1, true),
+(15, 'Spacious loft apartment in East Chesterton with industrial design.', 480000, 'Loft 12, The Warehouse',
+(15, 'Spacious loft apartment in East Chesterton with industrial design.', 480000, 'Loft 12, The Warehouse', 'CB4 1UN', 1100, 2, 2, 1, true),
+(15, 'Modern two-bedroom apartment with a balcony in a vibrant community.', 410000, 'Apartment 27, Chesterton Heights', 'CB4 1GW', 950, 2, 2, 1, false),
+(15, 'Elegant one-bedroom apartment, perfect for professionals, close to the Science Park.', 350000, 'Flat 9, Techview', 'CB4 3AZ', 700, 1, 1, 1, true),
+(15, 'Contemporary studio with smart home features, ideal for singles or students.', 280000, 'Studio 5, Newton Complex', 'CB4 2XF', 500, 1, 1, 0, false),
+(16, 'Riverside two-bedroom apartment with stunning views in Fen Ditton.', 460000, 'Flat 14, Riverfront Residences', 'CB5 8ST', 1000, 2, 2, 1, true),
+(16, 'Charming ground-floor apartment with a private garden in a quiet village setting.', 380000, 'Garden Flat, 22 Church Street', 'CB5 8SU', 850, 2, 1, 1, false),
+(16, 'Luxury penthouse overlooking the Cam, with large terrace and modern amenities.', 680000, 'Penthouse 7, Ditton Walk', 'CB5 8QD', 1300, 3, 2, 2, true),
+(16, 'Compact and affordable studio, recently refurbished, near local amenities.', 250000, 'Studio 3, High Street', 'CB5 8SP', 450, 1, 1, 0, false);
