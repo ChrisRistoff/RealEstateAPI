@@ -1,6 +1,6 @@
 using System.Text;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using RealEstateAPI.Models;
@@ -70,10 +70,10 @@ public class ApartmentsController : ControllerBase
         public async Task<ActionResult<Apartment>> AddApartment(int id, CreateApartmentDto createApartmentDto)
         {
             string query = "INSERT INTO apartments (\"areaId\", description, price, address, postcode, " +
-                        "\"sqrFeet\", rooms, bathrooms, \"parkingSpaces\", furnished) " +
-                        "VALUES (@AreaId, @Description, @Price, @Address, @Postcode, " +
-                        "@SqrFeet, @Rooms, @Bathrooms, @ParkingSpaces, @Furnished) " +
-                        "RETURNING *;";
+                                 "\"sqrFeet\", rooms, bathrooms, \"parkingSpaces\", furnished) " +
+                                 "VALUES (@AreaId, @Description, @Price, @Address, @Postcode, " +
+                                 "@SqrFeet, @Rooms, @Bathrooms, @ParkingSpaces, @Furnished) " +
+                                 "RETURNING *;";
 
             var apartment = await _context.apartments.FromSqlRaw(query,
                 new NpgsqlParameter("@AreaId", id),
@@ -86,9 +86,9 @@ public class ApartmentsController : ControllerBase
                 new NpgsqlParameter("@Bathrooms", createApartmentDto.bathrooms),
                 new NpgsqlParameter("@ParkingSpaces", createApartmentDto.parkingSpaces),
                 new NpgsqlParameter("@Furnished", createApartmentDto.furnished)
-            ).ToListAsync();
+                ).ToListAsync();
 
-            if (apartment != null) return Ok(apartment);
+            if(apartment != null) return StatusCode(StatusCodes.Status201Created, apartment);
 
             return new StatusCodeResult(StatusCodes.Status500InternalServerError);
         }
@@ -104,7 +104,7 @@ public class ApartmentsController : ControllerBase
 
                 if (apartment == null) return NotFound();
 
-                _context.apartments.Remove(apartmen);
+                _context.apartments.Remove(apartment);
                 await _context.SaveChangesAsync();
 
                 return NoContent();

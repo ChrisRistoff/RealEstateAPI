@@ -88,7 +88,7 @@ public class HousesController : ControllerBase
             new NpgsqlParameter("@Furnished", createHouseDto.furnished)
         ).ToListAsync();
 
-        if (house != null) return Ok(house);
+        if(house != null) return StatusCode(StatusCodes.Status201Created, house);
 
         return new StatusCodeResult(StatusCodes.Status500InternalServerError);
     }

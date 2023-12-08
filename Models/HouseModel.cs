@@ -28,7 +28,7 @@ public class House
 public class CreateHouseDto
 {
     [Required]
-    [StringLength(20)]
+    [StringLength(1000), MinLength(20)]
     public string description { get; set; }
     [Required]
     public double price { get; set; }
