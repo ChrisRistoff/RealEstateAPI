@@ -8,15 +8,8 @@ using RealEstateAPI.Models;
 namespace RealEstateAPI.Controllers;
 
 [Route("api/[controller]"), ApiController]
-public class HousesController : ControllerBase
+public class HousesController(RealEstateContext context) : ControllerBase
 {
-    private readonly RealEstateContext _context;
-
-    public HousesController(RealEstateContext context)
-    {
-        _context = context;
-    }
-
     // GET: api/Houses
     [HttpGet]
     public async Task<ActionResult<GetHousesDto>> GetHouses(
@@ -57,7 +50,7 @@ public class HousesController : ControllerBase
             parameters.Add(maxRooms.Value);
         }
 
-        var houses = await _context.houses
+        var houses = await context.houses
             .FromSqlRaw(sqlQuery.ToString(), parameters.ToArray())
             .AsNoTracking()
             .ToListAsync();
@@ -75,7 +68,7 @@ public class HousesController : ControllerBase
                     "@SqrFeet, @Rooms, @Bathrooms, @ParkingSpaces, @Furnished) " +
                     "RETURNING *;";
 
-        var house = await _context.houses.FromSqlRaw(query,
+        var house = await context.houses.FromSqlRaw(query,
             new NpgsqlParameter("@AreaId", id),
             new NpgsqlParameter("@Description", createHouseDto.description),
             new NpgsqlParameter("@Price", createHouseDto.price),
@@ -100,12 +93,12 @@ public class HousesController : ControllerBase
     {
         try
         {
-            var house = await _context.houses.FindAsync(id);
+            var house = await context.houses.FindAsync(id);
 
             if (house == null) return NotFound();
 
-            _context.houses.Remove(house);
-            await _context.SaveChangesAsync();
+            context.houses.Remove(house);
+            await context.SaveChangesAsync();
 
             return NoContent();
         }
@@ -123,7 +116,7 @@ public class HousesController : ControllerBase
     {
         try
         {
-            var house = await _context.houses.FindAsync(id);
+            var house = await context.houses.FindAsync(id);
             if (house == null) return NotFound();
 
             return Ok(house);

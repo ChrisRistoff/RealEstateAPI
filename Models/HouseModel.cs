@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RealEstateAPI.Models;
 
-public class House
+public class Houses
 {
 
     [Key]
