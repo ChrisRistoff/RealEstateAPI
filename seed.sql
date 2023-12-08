@@ -1,7 +1,7 @@
 \c real_estate_db
 
 DELETE FROM areas;
-INSERT INTO areas ("areaId", "name", "description", "schools", "shops", "kindergartens") VALUES
+INSERT INTO areas ("areaId", "name", "description", "schools", "shops", "kindergardens") VALUES
 (1, 'Grantchester', 'A picturesque village on the outskirts of Cambridge, known for its idyllic meadows and historic charm.', 'Grantchester Village School, The Perse School', 'Grantchester Orchard Tea Garden, The Red Lion Pub', 'Grantchester Playgroup, Riverside Nursery'),
 (2, 'City Centre', 'The historic and cultural heart of Cambridge, bustling with university life and rich in architectural beauty.', 'King’s College School, Parkside Community College', 'Grand Arcade, Lion Yard Shopping Centre', 'Bright Horizons, Cambridge City Centre Nursery'),
 (3, 'River Cam', 'A serene area characterized by the River Cam, popular for punting and picturesque views.', 'Cambridge International School, St. Matthew’s Primary', 'Grafton Centre, Quayside Market', 'River Cam Day Nursery, The Wendy House'),
@@ -9,7 +9,7 @@ INSERT INTO areas ("areaId", "name", "description", "schools", "shops", "kinderg
 (5, 'Mill Road', 'A vibrant and diverse area known for its independent shops and multicultural community.', 'St. Philip’s CofE Primary, Spinney Primary School', 'Mill Road Butchers, Hilary’s Greengrocery', 'Arbury Pre-School, Bharat Bhavan Indian Cultural Centre Nursery'),
 (6, 'Chesterton', 'A charming area with a mix of historic and modern influences, close to the River Cam.', 'Chesterton Community College, Milton Road Primary', 'Chesterton Road Shops, The Green Coffee Company', 'Chesterton Montessori, Bright Horizons Chesterton'),
 (7, 'Trumpington', 'A rapidly growing suburb with a blend of traditional charm and modern development.', 'Trumpington Community College, Fawcett Primary School', 'Trumpington Meadows Country Park, Waitrose & Partners', 'Trumpington Meadows Day Nursery, Cherry Hinton Nursery'),
-(8, 'West Cambridge', 'A developing area known for its academic institutions and proximity to open countryside.', 'University of Cambridge Primary School, Westfield Junior School', 'West Cambridge Site Stores, Sainsbury’s', 'West Cambridge Day Nursery, Orchard Park Community Pre-School');
+(8, 'West Cambridge', 'A developing area known for its academic institutions and proximity to open countryside.', 'University of Cambridge Primary School, Westfield Junior School', 'West Cambridge Site Stores, Sainsbury’s', 'West Cambridge Day Nursery, Orchard Park Community Pre-School'),
 (9, 'Cherry Hinton', 'A suburban area with a strong community feel, known for its parks and local amenities.', 'Cherry Hinton Primary, Netherhall School', 'Cherry Hinton High Street Shops, Tesco Superstore', 'Little Cherries Pre-School, Cherry Hinton Children’s Centre'),
 (10, 'Castle Hill', 'An historic area near the city centre, offering a blend of ancient architecture and modern living.', 'Castle Hill Primary School, St. John’s College School', 'Castle Hill Market, Kettle’s Yard Shop', 'Castle Hill Nursery, Tiny Tots Daycare'),
 (11, 'Arbury', 'A lively residential area with a strong sense of community, known for its local events and facilities.', 'Arbury Primary School, North Cambridge Academy', 'Arbury Court Local Centre, Budgens', 'Arbury Pre-School, The Wendy House Nursery'),
@@ -33,7 +33,7 @@ INSERT INTO houses ("areaId", "description", "price", "address", "postcode", "sq
 (5, 'Renovated Edwardian townhouse in Mill Road area.', 700000, '33 Mill Road', 'CB1 2AB', 2500, 5, 3, 1, true),
 (5, 'Stylish modern apartment close to local amenities.', 450000, 'Apartment 5, The Gables', 'CB1 2PQ', 1100, 2, 2, 1, true),
 (6, 'Luxurious penthouse with panoramic city views in Chesterton.', 800000, 'Penthouse 2, The Clocktower', 'CB4 1ZA', 2100, 3, 2, 2, true),
-(6, 'Spacious family home with private garden in a quiet neighborhood.', 650000, '12 Chesterton Lane', 'CB4 3AX', 2600, 4, 3, 2, false);
+(6, 'Spacious family home with private garden in a quiet neighborhood.', 650000, '12 Chesterton Lane', 'CB4 3AX', 2600, 4, 3, 2, false),
 (7, 'Modern family home with a spacious garden in Trumpington.', 650000, '42 Anstey Way', 'CB2 9JE', 2800, 4, 3, 2, false),
 (7, 'Stylish two-bedroom apartment near Addenbrooke’s Hospital.', 380000, 'Flat 5, Beacon Rise', 'CB2 9AN', 950, 2, 2, 1, true),
 (8, 'Renovated farmhouse with open fields and a large barn.', 950000, 'Old Farm Road', 'CB23 7PZ', 4000, 5, 4, 4, false),
@@ -86,7 +86,6 @@ INSERT INTO apartments ("areaId", "description", "price", "address", "postcode",
 (13, 'One-bedroom apartment in the city centre, ideal for university staff or students.', 350000, 'Flat 4, City Gate', 'CB1 1JW', 600, 1, 1, 0, false),
 (14, 'Family-sized apartment in Queen Edith’s with excellent local amenities.', 500000, 'Apartment 17, Wulfstan Way', 'CB1 8QJ', 1200, 3, 2, 1, false),
 (14, 'Modern two-bedroom apartment with easy access to Addenbrooke’s Hospital.', 420000, 'Flat 21, The Ediths', 'CB2 0QQ', 850, 2, 2, 1, true),
-(15, 'Spacious loft apartment in East Chesterton with industrial design.', 480000, 'Loft 12, The Warehouse',
 (15, 'Spacious loft apartment in East Chesterton with industrial design.', 480000, 'Loft 12, The Warehouse', 'CB4 1UN', 1100, 2, 2, 1, true),
 (15, 'Modern two-bedroom apartment with a balcony in a vibrant community.', 410000, 'Apartment 27, Chesterton Heights', 'CB4 1GW', 950, 2, 2, 1, false),
 (15, 'Elegant one-bedroom apartment, perfect for professionals, close to the Science Park.', 350000, 'Flat 9, Techview', 'CB4 3AZ', 700, 1, 1, 1, true),

@@ -19,7 +19,7 @@ public class HousesController : ControllerBase
 
     // GET: api/Houses
     [HttpGet]
-    public async Task<ActionResult<House>> GetHouses(
+    public async Task<ActionResult<GetHousesDto>> GetHouses(
         int? areaId=null, double? minPrice = null, double? maxPrice = null,
         int? minRooms = null, int? maxRooms = null
     )
@@ -67,7 +67,7 @@ public class HousesController : ControllerBase
 
     [HttpPost("api/areas/{id}/house")]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<ActionResult<House>> AddHouse(int id, CreateHouseDto createHouseDto)
+    public async Task<ActionResult<GetHousesDto>> AddHouse(int id, CreateHouseDto createHouseDto)
     {
         string query = "INSERT INTO houses (\"areaId\", description, price, address, postcode, " +
                     "\"sqrFeet\", rooms, bathrooms, \"parkingSpaces\", furnished) " +
@@ -96,7 +96,7 @@ public class HousesController : ControllerBase
     [HttpDelete("api/house/{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<House>> DeleteHouse(int id)
+    public async Task<ActionResult> DeleteHouse(int id)
     {
         try
         {
@@ -119,7 +119,7 @@ public class HousesController : ControllerBase
     [HttpGet("api/house/{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<House>> GetHouseById(int id)
+    public async Task<ActionResult<GetHousesDto>> GetHouseById(int id)
     {
         try
         {
