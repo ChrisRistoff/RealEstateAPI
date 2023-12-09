@@ -75,4 +75,12 @@ public class HousesRepository(IConfiguration configuration)
 
         return await connection.QueryAsync(query, new { HouseId = houseId});
     }
+
+    public async Task<IEnumerable<GetHousesDto>> GetHouseById (int houseId)
+    {
+        await using var connection = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection"));
+        string query = "SELECT * FROM houses WHERE \"houseId\" = @houseId";
+
+        return await connection.QueryAsync<GetHousesDto>(query, new { HouseId = houseId });
+    }
 }

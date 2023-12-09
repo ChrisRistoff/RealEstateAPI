@@ -65,18 +65,19 @@ public class HousesController(HousesRepository housesRepository) : ControllerBas
             Console.WriteLine(e);
             return new StatusCodeResult(StatusCodes.Status500InternalServerError);
         }
+
     }
 
-    /*
-    [HttpGet("api/house/{id}")]
+    [HttpGet("api/house/{houseId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<GetHousesDto>> GetHouseById(int id)
+    public async Task<ActionResult<GetHousesDto>> GetHouseById(int houseId)
     {
         try
         {
-            var house = await context.houses.FindAsync(id);
-            if (house == null) return NotFound();
+            var house = await housesRepository.GetHouseById(houseId);
+
+            if (!house.Any()) return NotFound();
 
             return Ok(house);
         }
@@ -86,5 +87,4 @@ public class HousesController(HousesRepository housesRepository) : ControllerBas
             return new StatusCodeResult(StatusCodes.Status500InternalServerError);
         }
     }
-    */
 }
