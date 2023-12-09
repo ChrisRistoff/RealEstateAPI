@@ -5,22 +5,15 @@ using RealEstateAPI.Services;
 namespace RealEstateAPI.Controllers;
 
 [Route("api/[controller]")]
-public class AreasController : ControllerBase
+public class AreasController(AreasRepository areasRepository) : ControllerBase
 {
-    private readonly AreasRepository _areasRepository;
-
-    public AreasController(AreasRepository areasRepository)
-    {
-        _areasRepository = areasRepository;
-    }
-
     // GET: api/Areas
     [HttpGet]
     public async Task<ActionResult<GetAllAreasDto>> GetAllAreas()
     {
         try
         {
-            var areas = await _areasRepository.GetAllAreasAsync();
+            var areas = await areasRepository.GetAllAreasAsync();
             return Ok(areas);
         }
         catch (Exception e)

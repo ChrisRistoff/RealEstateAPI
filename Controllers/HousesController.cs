@@ -3,12 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using RealEstateAPI.Models;
+using RealEstateAPI.Services;
 
 
 namespace RealEstateAPI.Controllers;
 
 [Route("api/[controller]"), ApiController]
-public class HousesController(RealEstateContext context) : ControllerBase
+public class HousesController(HousesRepository housesRepository) : ControllerBase
 {
     // GET: api/Houses
     [HttpGet]
@@ -17,45 +18,19 @@ public class HousesController(RealEstateContext context) : ControllerBase
         int? minRooms = null, int? maxRooms = null
     )
     {
-        var sqlQuery = new StringBuilder("SELECT * FROM houses WHERE 1=1");
-        var parameters = new List<object>();
-
-        if (areaId.HasValue)
+        try
         {
-            sqlQuery.Append(" AND \"areaId\" = {0}");
-            parameters.Add(areaId.Value);
-        }
+            var houses = await housesRepository.GetAllHouses(
+                areaId, minPrice, maxPrice, minRooms, maxRooms
+                );
 
-        if (minPrice.HasValue)
+            return Ok(houses);
+        }
+        catch (Exception e)
         {
-            sqlQuery.Append(" AND price >= {1}");
-            parameters.Add(minPrice.Value);
+            Console.WriteLine(e);
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
-
-        if (maxPrice.HasValue)
-        {
-            sqlQuery.Append(" AND price <= {2}");
-            parameters.Add(maxPrice.Value);
-        }
-
-        if (minRooms.HasValue)
-        {
-            sqlQuery.Append(" AND rooms >= {3}");
-            parameters.Add(minRooms.Value);
-        }
-
-        if (maxRooms.HasValue)
-        {
-            sqlQuery.Append(" AND rooms <= {4}");
-            parameters.Add(maxRooms.Value);
-        }
-
-        var houses = await context.houses
-            .FromSqlRaw(sqlQuery.ToString(), parameters.ToArray())
-            .AsNoTracking()
-            .ToListAsync();
-
-        return Ok(houses);
     }
 
     [HttpPost("api/areas/{id}/house")]
