@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Repositories
 builder.Services.AddScoped<AreasRepository>();
+builder.Services.AddScoped<HousesRepository>();
 
 
 builder.Services.AddDbContext<RealEstateContext>(options =>

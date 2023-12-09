@@ -26,7 +26,7 @@ public class Houses
 }
 
 
-public abstract class GetHousesDto
+public class GetHousesDto
 {
 
     [Key]

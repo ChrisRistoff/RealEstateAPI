@@ -1,7 +1,4 @@
-using System.Text;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Npgsql;
 using RealEstateAPI.Models;
 using RealEstateAPI.Services;
 
@@ -35,32 +32,22 @@ public class HousesController(HousesRepository housesRepository) : ControllerBas
 
     [HttpPost("api/areas/{id}/house")]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<ActionResult<GetHousesDto>> AddHouse(int id, CreateHouseDto createHouseDto)
+    public async Task<ActionResult<GetHousesDto>> AddHouse(int id, [FromBody]CreateHouseDto createHouseDto)
     {
-        string query = "INSERT INTO houses (\"areaId\", description, price, address, postcode, " +
-                    "\"sqrFeet\", rooms, bathrooms, \"parkingSpaces\", furnished) " +
-                    "VALUES (@AreaId, @Description, @Price, @Address, @Postcode, " +
-                    "@SqrFeet, @Rooms, @Bathrooms, @ParkingSpaces, @Furnished) " +
-                    "RETURNING *;";
+        try
+        {
 
-        var house = await context.houses.FromSqlRaw(query,
-            new NpgsqlParameter("@AreaId", id),
-            new NpgsqlParameter("@Description", createHouseDto.description),
-            new NpgsqlParameter("@Price", createHouseDto.price),
-            new NpgsqlParameter("@Address", createHouseDto.address),
-            new NpgsqlParameter("@Postcode", createHouseDto.postcode),
-            new NpgsqlParameter("@SqrFeet", createHouseDto.sqrFeet),
-            new NpgsqlParameter("@Rooms", createHouseDto.rooms),
-            new NpgsqlParameter("@Bathrooms", createHouseDto.bathrooms),
-            new NpgsqlParameter("@ParkingSpaces", createHouseDto.parkingSpaces),
-            new NpgsqlParameter("@Furnished", createHouseDto.furnished)
-        ).ToListAsync();
-
-        if(house != null) return StatusCode(StatusCodes.Status201Created, house);
-
-        return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            var house = await housesRepository.CreateHouse(id, createHouseDto);
+            return StatusCode(201, house);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(StatusCodes.Status500InternalServerError);
+        }
     }
 
+    /*
     [HttpDelete("api/house/{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -102,4 +89,5 @@ public class HousesController(HousesRepository housesRepository) : ControllerBas
             return new StatusCodeResult(StatusCodes.Status500InternalServerError);
         }
     }
+    */
 }

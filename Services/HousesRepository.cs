@@ -5,8 +5,9 @@ using RealEstateAPI.Models;
 
 namespace RealEstateAPI.Services;
 
-public abstract class HousesRepository(IConfiguration configuration)
+public class HousesRepository(IConfiguration configuration)
 {
+
     public async Task<IEnumerable<GetHousesDto>> GetAllHouses(
         int? areaId = null, double? minPrice = null, double? maxPrice = null,
         int? minRooms = null, int? maxRooms = null
@@ -19,7 +20,7 @@ public abstract class HousesRepository(IConfiguration configuration)
 
         if (areaId.HasValue)
         {
-            query.Append(" AND \"areaId\" = @\"areaId\"")
+            query.Append(" AND \"areaId\" = @\"areaId\"");
             parameters.Add("\"areaId\"", areaId.Value);
         }
 
@@ -50,8 +51,19 @@ public abstract class HousesRepository(IConfiguration configuration)
         return await connection.QueryAsync<GetHousesDto>(query.ToString());
     }
 
-    public async Task<IEnumerable<CreateHouseDto>> CreateHouse(CreateHouseDto createHouseDto)
+    public async Task<IEnumerable<GetHousesDto>> CreateHouse(int id, CreateHouseDto createHouseDto)
     {
+        var parameters = new DynamicParameters(createHouseDto);
+        parameters.Add("areaId", id);
 
+        await using var connection = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection"));
+
+        string query = "INSERT INTO houses (\"areaId\", description, price, address, postcode, " +
+                       "\"sqrFeet\", rooms, bathrooms, \"parkingSpaces\", furnished) " +
+                       "VALUES (@AreaId, @Description, @Price, @Address, @Postcode, " +
+                       "@SqrFeet, @Rooms, @Bathrooms, @ParkingSpaces, @Furnished) " +
+                       "RETURNING *;";
+
+        return await connection.QueryAsync<GetHousesDto>(query, parameters);
     }
 }
