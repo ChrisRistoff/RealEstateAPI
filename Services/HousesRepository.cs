@@ -1,5 +1,6 @@
 using System.Text;
 using Dapper;
+using Microsoft.AspNetCore.Mvc;
 using Npgsql;
 using RealEstateAPI.Models;
 
@@ -65,5 +66,13 @@ public class HousesRepository(IConfiguration configuration)
                        "RETURNING *;";
 
         return await connection.QueryAsync<GetHousesDto>(query, parameters);
+    }
+
+    public async Task<IEnumerable<dynamic>> DeleteHouse(int houseId)
+    {
+        await using var connection = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection"));
+        string query = "DELETE FROM houses WHERE \"houseId\" = @houseId RETURNING *";
+
+        return await connection.QueryAsync(query, new { HouseId = houseId});
     }
 }

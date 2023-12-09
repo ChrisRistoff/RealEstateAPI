@@ -47,20 +47,16 @@ public class HousesController(HousesRepository housesRepository) : ControllerBas
         }
     }
 
-    /*
-    [HttpDelete("api/house/{id}")]
+    [HttpDelete("api/house/{houseId}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult> DeleteHouse(int id)
+    public async Task<ActionResult> DeleteHouse(int houseId)
     {
         try
         {
-            var house = await context.houses.FindAsync(id);
+            var house = await housesRepository.DeleteHouse(houseId);
 
-            if (house == null) return NotFound();
-
-            context.houses.Remove(house);
-            await context.SaveChangesAsync();
+            if (!house.Any()) return NotFound();
 
             return NoContent();
         }
@@ -71,6 +67,7 @@ public class HousesController(HousesRepository housesRepository) : ControllerBas
         }
     }
 
+    /*
     [HttpGet("api/house/{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
