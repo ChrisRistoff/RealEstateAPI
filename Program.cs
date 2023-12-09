@@ -1,10 +1,15 @@
 using Microsoft.EntityFrameworkCore;
+using RealEstateAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddControllers();
+// Repositories
+builder.Services.AddScoped<AreasRepository>();
+
+
 builder.Services.AddDbContext<RealEstateContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddEndpointsApiExplorer();

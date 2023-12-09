@@ -1,40 +1,32 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using RealEstateAPI.Models;
+using RealEstateAPI.Services;
 
 namespace RealEstateAPI.Controllers;
 
 [Route("api/[controller]")]
-public class AreasController(RealEstateContext context) : ControllerBase
+public class AreasController : ControllerBase
 {
+    private readonly AreasRepository _areasRepository;
+
+    public AreasController(AreasRepository areasRepository)
+    {
+        _areasRepository = areasRepository;
+    }
 
     // GET: api/Areas
     [HttpGet]
     public async Task<ActionResult<GetAllAreasDto>> GetAllAreas()
     {
-        var query = "SELECT a.\"areaId\", a.name, a.description, a.schools, a.shops, a.kindergardens, " +
-                    "COUNT(DISTINCT h.\"houseId\") as houseC, " +
-                    "COUNT(DISTINCT ap.\"apartmentId\") as apartmentC " +
-                    "FROM areas a " +
-                    "LEFT JOIN houses h ON h.\"areaId\" = a.\"areaId\" " +
-                    "LEFT JOIN apartments ap ON ap.\"areaId\" = a.\"areaId\" " +
-                    "GROUP BY a.\"areaId\", a.name, a.description, a.schools, a.shops, a.kindergardens;";
-
-        var areaEntities = await context.areas.FromSqlRaw(query).AsNoTracking().ToListAsync();
-
-        var areas = areaEntities.Select(a => new GetAllAreasDto
+        try
         {
-            areaId = a.areaId,
-            name = a.name,
-            description = a.description,
-            schools = a.schools,
-            shops = a.shops,
-            kindergardens = a.kindergardens,
-            houseC = a.houseC,
-            apartmentC = a.apartmentC
-        }).ToList();
-
-        return Ok(areas);
-
+            var areas = await _areasRepository.GetAllAreasAsync();
+            return Ok(areas);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(StatusCodes.Status500InternalServerError);
+        }
     }
 }
