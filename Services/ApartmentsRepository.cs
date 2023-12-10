@@ -20,8 +20,9 @@ public class ApartmentsRepository(IConfiguration configuration)
 
         if (areaId.HasValue)
         {
-            query.Append(" AND \"areaId\" = @AreaId");
+            query.Append($" AND \"areaId\" = @AreaId");
             parameters.Add("AreaId", areaId.Value);
+            Console.WriteLine(areaId.Value);
         }
 
         if (minPrice.HasValue)
@@ -48,7 +49,7 @@ public class ApartmentsRepository(IConfiguration configuration)
             parameters.Add("MaxRooms", maxRooms.Value);
         }
 
-        return await connection.QueryAsync<GetApartmentsDto>(query.ToString());
+        return await connection.QueryAsync<GetApartmentsDto>(query.ToString(), parameters);
     }
 
     public async Task<IEnumerable<GetApartmentsDto>> CreateApartment(int areaId, CreateApartmentDto createApartmentDto)

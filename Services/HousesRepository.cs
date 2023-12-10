@@ -20,35 +20,35 @@ public class HousesRepository(IConfiguration configuration)
 
         if (areaId.HasValue)
         {
-            query.Append(" AND \"areaId\" = @\"areaId\"");
-            parameters.Add("\"areaId\"", areaId.Value);
+            query.Append(" AND \"areaId\" = @areaId");
+            parameters.Add("areaId", areaId.Value);
         }
 
         if (minPrice.HasValue)
         {
-            query.Append(" AND price >= @\"minPrice\"");
-            parameters.Add("\"minPrice\"", minPrice.Value);
+            query.Append(" AND price >= @minPrice");
+            parameters.Add("minPrice", minPrice.Value);
         }
 
         if (maxPrice.HasValue)
         {
-            query.Append(" AND price <= @\"maxPrice\"");
-            parameters.Add("\"maxPrice\"", maxPrice.Value);
+            query.Append(" AND price <= @maxPrice");
+            parameters.Add("maxPrice", maxPrice.Value);
         }
 
         if (minRooms.HasValue)
         {
-            query.Append(" AND rooms >= @\"minRooms\"");
-            parameters.Add("\"minRooms\"", minRooms.Value);
+            query.Append(" AND rooms >= @minRooms");
+            parameters.Add("minRooms", minRooms.Value);
         }
 
         if (maxRooms.HasValue)
         {
-            query.Append(" AND rooms <= @\"maxRooms\"");
-            parameters.Add("\"maxRooms\"", maxRooms.Value);
+            query.Append(" AND rooms <= @maxRooms");
+            parameters.Add("maxRooms", maxRooms.Value);
         }
 
-        return await connection.QueryAsync<GetHousesDto>(query.ToString());
+        return await connection.QueryAsync<GetHousesDto>(query.ToString(), parameters);
     }
 
     public async Task<IEnumerable<GetHousesDto>> CreateHouse(int id, CreateHouseDto createHouseDto)
