@@ -1,6 +1,5 @@
 using System.Text;
 using Dapper;
-using Microsoft.AspNetCore.Mvc;
 using Npgsql;
 using RealEstateAPI.Models;
 
@@ -16,7 +15,7 @@ public class HousesRepository(IConfiguration configuration)
     {
         await using var connection = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection"));
 
-        var query = new StringBuilder("SELECT * FROM HOUSES WHERE 1=1");
+        var query = new StringBuilder("SELECT * FROM houses WHERE 1=1");
         var parameters = new DynamicParameters();
 
         if (areaId.HasValue)

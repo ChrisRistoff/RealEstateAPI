@@ -9,6 +9,7 @@ builder.Services.AddControllers();
 // Repositories
 builder.Services.AddScoped<AreasRepository>();
 builder.Services.AddScoped<HousesRepository>();
+builder.Services.AddScoped<ApartmentsRepository>();
 
 
 builder.Services.AddDbContext<RealEstateContext>(options =>

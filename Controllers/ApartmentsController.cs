@@ -4,67 +4,38 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using RealEstateAPI.Models;
+using RealEstateAPI.Services;
 
 namespace RealEstateAPI.Controllers;
 
 [Route("api/[controller]"), ApiController]
-public class ApartmentsController : ControllerBase
+public class ApartmentsController(ApartmentsRepository apartmentsRepository) : ControllerBase
 {
-    private readonly RealEstateContext _context;
-
-    public ApartmentsController(RealEstateContext context)
-    {
-        _context = context;
-    }
 
     // GET: api/apartments
     [HttpGet]
     public async Task<ActionResult<GetApartmentsDto>> GetApartments(
-        int? areaId=null, double? minPrice = null, double? maxPrice = null,
+        int? areaId = null, double? minPrice = null, double? maxPrice = null,
         int? minRooms = null, int? maxRooms = null
     )
     {
-        var sqlQuery = new StringBuilder("SELECT * FROM apartments WHERE 1=1");
-        var parameters = new List<object>();
-
-        if (areaId.HasValue)
+        try
         {
-            sqlQuery.Append(" AND \"areaId\" = {0}");
-            parameters.Add(areaId.Value);
-        }
+            var apartments = await apartmentsRepository.GetAllApartments(
+                areaId, minPrice, maxPrice, minRooms, maxRooms
+                );
 
-        if (minPrice.HasValue)
+            return Ok(apartments);
+
+        }
+        catch (Exception e)
         {
-            sqlQuery.Append(" AND price >= {1}");
-            parameters.Add(minPrice.Value);
+            Console.WriteLine(e);
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
-
-        if (maxPrice.HasValue)
-        {
-            sqlQuery.Append(" AND price <= {2}");
-            parameters.Add(maxPrice.Value);
-        }
-
-        if (minRooms.HasValue)
-        {
-            sqlQuery.Append(" AND rooms >= {3}");
-            parameters.Add(minRooms.Value);
-        }
-
-        if (maxRooms.HasValue)
-        {
-            sqlQuery.Append(" AND rooms <= {4}");
-            parameters.Add(maxRooms.Value);
-        }
-
-        var apartments = await _context.apartments
-            .FromSqlRaw(sqlQuery.ToString(), parameters.ToArray())
-            .AsNoTracking()
-            .ToListAsync();
-
-        return Ok(apartments);
     }
 
+    /*
     [HttpPost("api/areas/{id}/apartment")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<ActionResult<GetApartmentsDto>> AddApartment(int id, CreateApartmentDto createApartmentDto)
@@ -133,5 +104,5 @@ public class ApartmentsController : ControllerBase
             Console.WriteLine(e);
             return new StatusCodeResult(StatusCodes.Status500InternalServerError);
         }
-    }
+    }*/
 }

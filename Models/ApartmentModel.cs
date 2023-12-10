@@ -24,7 +24,7 @@ public class Apartment
    public Area areas { get; set; }
 }
 
-public abstract class GetApartmentsDto
+public class GetApartmentsDto
 {
 
     [Key]

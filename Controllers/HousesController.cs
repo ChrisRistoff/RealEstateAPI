@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using RealEstateAPI.Models;
 using RealEstateAPI.Services;
 
-
 namespace RealEstateAPI.Controllers;
 
 [Route("api/[controller]"), ApiController]
