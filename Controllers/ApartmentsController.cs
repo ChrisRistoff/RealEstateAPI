@@ -75,7 +75,6 @@ public class ApartmentsController(ApartmentsRepository apartmentsRepository) : C
         }
     }
 
-    /*
     [HttpGet("api/apartments/{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -83,8 +82,8 @@ public class ApartmentsController(ApartmentsRepository apartmentsRepository) : C
     {
         try
         {
-            var apartment = await _context.apartments.FindAsync(id);
-            if (apartment == null) return NotFound();
+            var apartment = await apartmentsRepository.GetApartmentById(id);
+            if (!apartment.Any()) return NotFound();
 
             return Ok(apartment);
         }
@@ -93,5 +92,5 @@ public class ApartmentsController(ApartmentsRepository apartmentsRepository) : C
             Console.WriteLine(e);
             return new StatusCodeResult(StatusCodes.Status500InternalServerError);
         }
-    }*/
+    }
 }

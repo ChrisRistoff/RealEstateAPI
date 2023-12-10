@@ -77,4 +77,12 @@ public class ApartmentsRepository(IConfiguration configuration)
 
         return await connection.QueryAsync<GetApartmentsDto>(query, new {ApartmentId = apartmentId});
     }
+
+    public async Task<IEnumerable<GetApartmentsDto>> GetApartmentById(int apartmentId)
+    {
+        await using var connection = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection"));
+        string query = "SELECT * FROM apartments WHERE \"apartmentId\" = @apartmentId";
+
+        return await connection.QueryAsync<GetApartmentsDto>(query, new {ApartmentId = apartmentId});
+    }
 }
