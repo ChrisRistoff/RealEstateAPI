@@ -20,34 +20,52 @@ public class ApartmentsRepository(IConfiguration configuration)
 
         if (areaId.HasValue)
         {
-            query.Append(" AND \"areaId\" = @\"areaId\"");
-            parameters.Add("\"areaId\"", areaId.Value);
+            query.Append(" AND \"areaId\" = @AreaId");
+            parameters.Add("AreaId", areaId.Value);
         }
 
         if (minPrice.HasValue)
         {
-            query.Append(" AND price >= @\"minPrice\"");
-            parameters.Add("\"minPrice\"", minPrice.Value);
+            query.Append(" AND price >= @MinPrice");
+            parameters.Add("MinPrice", minPrice.Value);
         }
 
         if (maxPrice.HasValue)
         {
-            query.Append(" AND price <= @\"maxPrice\"");
-            parameters.Add("\"maxPrice\"", maxPrice.Value);
+            query.Append(" AND price <= @MaxPrice");
+            parameters.Add("MaxPrice", maxPrice.Value);
         }
 
         if (minRooms.HasValue)
         {
-            query.Append(" AND rooms >= @\"minRooms\"");
-            parameters.Add("\"minRooms\"", minRooms.Value);
+            query.Append(" AND rooms >= @MinRooms");
+            parameters.Add("MinRooms", minRooms.Value);
         }
 
         if (maxRooms.HasValue)
         {
-            query.Append(" AND rooms <= @\"maxRooms\"");
-            parameters.Add("\"maxRooms\"", maxRooms.Value);
+            query.Append(" AND rooms <= @MaxRooms");
+            parameters.Add("MaxRooms", maxRooms.Value);
         }
 
         return await connection.QueryAsync<GetApartmentsDto>(query.ToString());
+    }
+
+    public async Task<IEnumerable<GetApartmentsDto>> CreateApartment(int areaId, CreateApartmentDto createApartmentDto)
+    {
+        await using var connection = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection"));
+
+        var parameters = new DynamicParameters(createApartmentDto);
+        parameters.Add("areaId", areaId);
+
+        string query = "INSERT INTO apartments (\"areaId\", description, price, address, postcode, " +
+                       "\"sqrFeet\", rooms, bathrooms, \"parkingSpaces\", furnished) " +
+                       "VALUES (@AreaId, @Description, @Price, @Address, @Postcode, " +
+                       "@SqrFeet, @Rooms, @Bathrooms, @ParkingSpaces, @Furnished) " +
+                       "RETURNING *;";
+
+        return await connection.QueryAsync<GetApartmentsDto>(
+            query, parameters);
+
     }
 }

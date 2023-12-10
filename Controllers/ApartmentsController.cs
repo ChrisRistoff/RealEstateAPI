@@ -35,35 +35,26 @@ public class ApartmentsController(ApartmentsRepository apartmentsRepository) : C
         }
     }
 
-    /*
-    [HttpPost("api/areas/{id}/apartment")]
+    [HttpPost("api/areas/{areaId}/apartment")]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<ActionResult<GetApartmentsDto>> AddApartment(int id, CreateApartmentDto createApartmentDto)
+    public async Task<ActionResult<GetApartmentsDto>> AddApartment(int areaId, CreateApartmentDto createApartmentDto)
     {
-        string query = "INSERT INTO apartments (\"areaId\", description, price, address, postcode, " +
-                             "\"sqrFeet\", rooms, bathrooms, \"parkingSpaces\", furnished) " +
-                             "VALUES (@AreaId, @Description, @Price, @Address, @Postcode, " +
-                             "@SqrFeet, @Rooms, @Bathrooms, @ParkingSpaces, @Furnished) " +
-                             "RETURNING *;";
+        try
+        {
+            var apartment = await apartmentsRepository.CreateApartment(areaId, createApartmentDto);
 
-        var apartment = await _context.apartments.FromSqlRaw(query,
-            new NpgsqlParameter("@AreaId", id),
-            new NpgsqlParameter("@Description", createApartmentDto.description),
-            new NpgsqlParameter("@Price", createApartmentDto.price),
-            new NpgsqlParameter("@Address", createApartmentDto.address),
-            new NpgsqlParameter("@Postcode", createApartmentDto.postcode),
-            new NpgsqlParameter("@SqrFeet", createApartmentDto.sqrFeet),
-            new NpgsqlParameter("@Rooms", createApartmentDto.rooms),
-            new NpgsqlParameter("@Bathrooms", createApartmentDto.bathrooms),
-            new NpgsqlParameter("@ParkingSpaces", createApartmentDto.parkingSpaces),
-            new NpgsqlParameter("@Furnished", createApartmentDto.furnished)
-            ).ToListAsync();
+            return StatusCode(201, apartment);
 
-        if(apartment != null) return StatusCode(StatusCodes.Status201Created, apartment);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(StatusCodes.Status500InternalServerError);
+        }
 
-        return new StatusCodeResult(StatusCodes.Status500InternalServerError);
     }
 
+    /*
     [HttpDelete("api/apartments/{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
