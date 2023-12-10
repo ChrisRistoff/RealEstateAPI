@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Cryptography.X509Certificates;
 
 namespace RealEstateAPI.Models;
 
@@ -61,4 +62,10 @@ public class CreateApartmentDto
     public int bathrooms { get; set; }
     public int parkingSpaces { get; set; }
     public bool furnished { get; set; } = false;
+}
+
+public class UpdateApartmentDto
+{
+    [Required]
+    public double price { get; set; }
 }

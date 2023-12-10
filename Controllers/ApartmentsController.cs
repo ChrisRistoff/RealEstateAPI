@@ -93,4 +93,24 @@ public class ApartmentsController(ApartmentsRepository apartmentsRepository) : C
             return new StatusCodeResult(StatusCodes.Status500InternalServerError);
         }
     }
+
+    [HttpPatch("api/apartments/{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<GetApartmentsDto>> UpdateApartment(int id, UpdateApartmentDto updateApartmentDto)
+    {
+        try
+        {
+            var apartment = await apartmentsRepository.UpdateApartment(id, updateApartmentDto);
+
+            if (!apartment.Any()) return NotFound();
+
+            return Ok(apartment);
+        }
+        catch (IOException e)
+        {
+            Console.WriteLine(e);
+            return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+        }
+    }
 }

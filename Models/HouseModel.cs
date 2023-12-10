@@ -64,3 +64,9 @@ public class CreateHouseDto
     public int parkingSpaces { get; set; }
     public bool furnished { get; set; } = false;
 }
+
+public class UpdateHouseDto
+{
+    [Required]
+    public double price { get; set; }
+}

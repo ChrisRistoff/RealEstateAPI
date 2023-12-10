@@ -85,4 +85,15 @@ public class ApartmentsRepository(IConfiguration configuration)
 
         return await connection.QueryAsync<GetApartmentsDto>(query, new {ApartmentId = apartmentId});
     }
+
+    public async Task<IEnumerable<GetApartmentsDto>> UpdateApartment(int apartmentId, UpdateApartmentDto updateApartmentDto)
+    {
+        await using var connection = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection"));
+        string query = "UPDATE apartments SET price = @Price WHERE \"apartmentId\" = @ApartmentId RETURNING *";
+
+        var parameters = new DynamicParameters(updateApartmentDto);
+        parameters.Add("ApartmentId", apartmentId);
+
+        return await connection.QueryAsync<GetApartmentsDto>(query, parameters);
+    }
 }

@@ -1,5 +1,6 @@
 using System.Text;
 using Dapper;
+using Microsoft.AspNetCore.Mvc;
 using Npgsql;
 using RealEstateAPI.Models;
 
@@ -81,5 +82,16 @@ public class HousesRepository(IConfiguration configuration)
         string query = "SELECT * FROM houses WHERE \"houseId\" = @houseId";
 
         return await connection.QueryAsync<GetHousesDto>(query, new { HouseId = houseId });
+    }
+
+    public async Task<IEnumerable<GetHousesDto>> UpdateHouse(int id, UpdateHouseDto updateHouseDto)
+    {
+        await using var connection = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection"));
+        string query = "UPDATE houses SET price = @price WHERE \"houseId\" = @houseId RETURNING *";
+
+        var parameters = new DynamicParameters(updateHouseDto);
+        parameters.Add("houseId", id);
+
+        return await connection.QueryAsync<GetHousesDto>(query, parameters);
     }
 }

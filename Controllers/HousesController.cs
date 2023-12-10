@@ -85,4 +85,25 @@ public class HousesController(HousesRepository housesRepository) : ControllerBas
             return new StatusCodeResult(StatusCodes.Status500InternalServerError);
         }
     }
+
+    [HttpPatch("api/house/{houseId}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<GetHousesDto>> UpdateHouse(int houseId, UpdateHouseDto updateHouseDto)
+    {
+        try
+        {
+            var house = await housesRepository.UpdateHouse(houseId, updateHouseDto);
+
+            if (!house.Any()) return NotFound();
+
+            return Ok(house);
+        }
+        catch (IOException e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(StatusCodes.Status500InternalServerError);
+        }
+    }
+
 }
