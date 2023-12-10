@@ -54,7 +54,6 @@ public class ApartmentsController(ApartmentsRepository apartmentsRepository) : C
 
     }
 
-    /*
     [HttpDelete("api/apartments/{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -62,14 +61,12 @@ public class ApartmentsController(ApartmentsRepository apartmentsRepository) : C
     {
         try
         {
-            var apartment = await _context.apartments.FindAsync(id);
+            var apartment = await apartmentsRepository.DeleteApartment(id);
 
-            if (apartment == null) return NotFound();
-
-            _context.apartments.Remove(apartment);
-            await _context.SaveChangesAsync();
+            if (!apartment.Any()) return NotFound();
 
             return NoContent();
+
         }
         catch (IOException e)
         {
@@ -78,6 +75,7 @@ public class ApartmentsController(ApartmentsRepository apartmentsRepository) : C
         }
     }
 
+    /*
     [HttpGet("api/apartments/{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

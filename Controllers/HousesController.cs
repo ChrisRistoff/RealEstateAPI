@@ -35,7 +35,6 @@ public class HousesController(HousesRepository housesRepository) : ControllerBas
     {
         try
         {
-
             var house = await housesRepository.CreateHouse(id, createHouseDto);
             return StatusCode(201, house);
         }

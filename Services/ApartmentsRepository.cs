@@ -69,4 +69,12 @@ public class ApartmentsRepository(IConfiguration configuration)
             query, parameters);
 
     }
+
+    public async Task<IEnumerable<GetApartmentsDto>> DeleteApartment(int apartmentId)
+    {
+        await using var connection = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection"));
+        string query = "DELETE FROM apartments WHERE \"apartmentId\" = @apartmentId RETURNING *";
+
+        return await connection.QueryAsync<GetApartmentsDto>(query, new {ApartmentId = apartmentId});
+    }
 }
