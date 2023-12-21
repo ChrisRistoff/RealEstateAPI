@@ -1,6 +1,5 @@
 using System.Text;
 using Dapper;
-using Microsoft.AspNetCore.Mvc;
 using Npgsql;
 using RealEstateAPI.Models;
 
