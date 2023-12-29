@@ -35,7 +35,6 @@ public class Apartment
 
 public class GetApartmentsDto
 {
-
     [Key]
     public int apartmentId { get; set; }
     public int areaId { get; set; }
